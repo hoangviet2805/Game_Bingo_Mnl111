@@ -63,12 +63,22 @@ namespace BingoGame.Controllers
             if (backgroundImage != null && backgroundImage.Length > 0)
             {
                 string ext = Path.GetExtension(backgroundImage.FileName);
-                string fileName = "bg" + ext;
+                string fileName = "bg_" + DateTime.Now.Ticks + ext;
                 
                 string uploadsFolder = Path.Combine(_env.WebRootPath, "images");
                 if (!Directory.Exists(uploadsFolder)) {
                     Directory.CreateDirectory(uploadsFolder);
                 }
+
+                try 
+                {
+                    var oldFiles = Directory.GetFiles(uploadsFolder, "bg_*");
+                    foreach (var oldFile in oldFiles)
+                    {
+                        try { System.IO.File.Delete(oldFile); } catch { }
+                    }
+                }
+                catch { }
                 
                 string filePath = Path.Combine(uploadsFolder, fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
@@ -101,12 +111,22 @@ namespace BingoGame.Controllers
             if (backgroundAudio != null && backgroundAudio.Length > 0)
             {
                 string ext = Path.GetExtension(backgroundAudio.FileName);
-                string fileName = "bg_audio" + ext;
+                string fileName = "bg_audio_" + DateTime.Now.Ticks + ext;
                 
                 string uploadsFolder = Path.Combine(_env.WebRootPath, "audio");
                 if (!Directory.Exists(uploadsFolder)) {
                     Directory.CreateDirectory(uploadsFolder);
                 }
+
+                try 
+                {
+                    var oldFiles = Directory.GetFiles(uploadsFolder, "bg_audio*");
+                    foreach (var oldFile in oldFiles)
+                    {
+                        try { System.IO.File.Delete(oldFile); } catch { }
+                    }
+                }
+                catch { }
                 
                 string filePath = Path.Combine(uploadsFolder, fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
