@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+@inject BingoGame.Services.SettingsService SettingsService
+@{
+    var bgAudio = SettingsService.GetBackgroundAudio();
+}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,6 +35,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Appearance">Quản lý giao diện</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Audio">Quản lý âm thanh</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -50,6 +57,39 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (!string.IsNullOrEmpty(bgAudio)) {
+        <audio id="globalBgAudio" loop autoplay>
+            <source src="@bgAudio" type="audio/mpeg">
+        </audio>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var audio = document.getElementById('globalBgAudio');
+                if (audio) {
+                    // Khôi phục thời gian phát từ sessionStorage
+                    var savedTime = sessionStorage.getItem('bgAudioCurrentTime');
+                    if (savedTime) {
+                        audio.currentTime = parseFloat(savedTime);
+                    }
+
+                    var playAudio = function() {
+                        audio.play().catch(e => console.log('Autoplay blocked: ', e));
+                    };
+
+                    // Lưu thời gian phát liên tục
+                    audio.addEventListener('timeupdate', function() {
+                        sessionStorage.setItem('bgAudioCurrentTime', audio.currentTime);
+                    });
+
+                    // Xử lý khi trình duyệt chặn autoplay ở lần đầu tiên truy cập
+                    document.addEventListener('click', function() {
+                        if (audio.paused) {
+                            playAudio();
+                        }
+                    }, { once: true });
+                }
+            });
+        </script>
+    }
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

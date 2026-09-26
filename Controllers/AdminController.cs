@@ -87,5 +87,43 @@ namespace BingoGame.Controllers
             _settingsService.SetBackgroundImage("");
             return RedirectToAction("Appearance");
         }
+
+        [HttpGet]
+        public IActionResult Audio()
+        {
+            ViewBag.BackgroundAudio = _settingsService.GetBackgroundAudio();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadAudio(IFormFile backgroundAudio)
+        {
+            if (backgroundAudio != null && backgroundAudio.Length > 0)
+            {
+                string ext = Path.GetExtension(backgroundAudio.FileName);
+                string fileName = "bg_audio" + ext;
+                
+                string uploadsFolder = Path.Combine(_env.WebRootPath, "audio");
+                if (!Directory.Exists(uploadsFolder)) {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+                
+                string filePath = Path.Combine(uploadsFolder, fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await backgroundAudio.CopyToAsync(stream);
+                }
+                
+                _settingsService.SetBackgroundAudio($"/audio/{fileName}");
+            }
+            return RedirectToAction("Audio");
+        }
+
+        [HttpPost]
+        public IActionResult ResetAudio()
+        {
+            _settingsService.SetBackgroundAudio("");
+            return RedirectToAction("Audio");
+        }
     }
 }

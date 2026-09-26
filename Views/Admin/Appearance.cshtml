@@ -27,7 +27,7 @@
             {
                 <div class="mt-4">
                     <h6>Hình nền hiện tại:</h6>
-                    <img src="@ViewBag.BackgroundImage" alt="Background Image" class="img-fluid rounded" style="max-height: 300px; border: 2px solid #555;" />
+                    <img src="@ViewBag.BackgroundImage?v=@DateTime.Now.Ticks" alt="Background Image" class="img-fluid rounded" style="max-height: 300px; border: 2px solid #555;" />
                 </div>
             }
         </div>

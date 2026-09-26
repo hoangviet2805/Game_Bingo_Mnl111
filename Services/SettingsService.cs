@@ -31,6 +31,24 @@ namespace BingoGame.Services
             return "";
         }
 
+        public string GetBackgroundAudio()
+        {
+            if (File.Exists(_settingsPath))
+            {
+                try {
+                    var json = File.ReadAllText(_settingsPath);
+                    var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+                    if (dict != null && dict.TryGetValue("BackgroundAudio", out var audioUrl))
+                    {
+                        return audioUrl;
+                    }
+                } catch {
+                    return "";
+                }
+            }
+            return "";
+        }
+
         public void SetBackgroundImage(string url)
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -44,6 +62,22 @@ namespace BingoGame.Services
                 }
             }
             dict["BackgroundImage"] = url;
+            File.WriteAllText(_settingsPath, JsonSerializer.Serialize(dict, options));
+        }
+
+        public void SetBackgroundAudio(string url)
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            if (File.Exists(_settingsPath))
+            {
+                try {
+                    dict = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(_settingsPath)) ?? new Dictionary<string, string>();
+                } catch {
+                    dict = new Dictionary<string, string>();
+                }
+            }
+            dict["BackgroundAudio"] = url;
             File.WriteAllText(_settingsPath, JsonSerializer.Serialize(dict, options));
         }
     }

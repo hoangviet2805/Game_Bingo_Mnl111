@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Quản lý âm thanh";
+}
+
+<div class="container mt-4">
+    <h2>Quản lý âm thanh</h2>
+    <hr />
+
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-body">
+            <h5 class="card-title text-info">Âm thanh nền (Nhạc nền)</h5>
+            <p class="card-text">Tải lên một file âm thanh (mp3, wav,...) để làm nhạc nền cho trò chơi. Nhạc sẽ tự động phát và lặp đi lặp lại.</p>
+            
+            <form asp-action="UploadAudio" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="backgroundAudio" class="form-label">Chọn file âm thanh</label>
+                    <input class="form-control bg-secondary text-white" type="file" id="backgroundAudio" name="backgroundAudio" accept="audio/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Tải lên và Lưu</button>
+            </form>
+
+            <form asp-action="ResetAudio" method="post" class="mt-3">
+                <button type="submit" class="btn btn-outline-light">Tắt nhạc nền</button>
+            </form>
+
+            @if (!string.IsNullOrEmpty(ViewBag.BackgroundAudio as string))
+            {
+                <div class="mt-4">
+                    <h6>Âm thanh hiện tại:</h6>
+                    <audio controls loop>
+                        <source src="@ViewBag.BackgroundAudio" type="audio/mpeg">
+                        Trình duyệt của bạn không hỗ trợ thẻ audio.
+                    </audio>
+                </div>
+            }
+        </div>
+    </div>
+</div>

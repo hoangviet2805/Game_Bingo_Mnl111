@@ -1,3 +1,4 @@
 {
-  "BackgroundImage": "/images/bg.webp"
+  "BackgroundImage": "/images/bg.webp",
+  "BackgroundAudio": "/audio/bg_audio.mp3"
 }
