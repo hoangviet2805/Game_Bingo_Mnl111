@@ -1,0 +1,32 @@
+@model IEnumerable<BingoGame.Models.QuestionItem>
+
+@{
+    ViewData["Title"] = "Quản lý Câu hỏi";
+}
+
+<div class="container mt-4">
+    <h2>Quản lý Câu hỏi Bingo</h2>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th style="width: 5%">Ô số</th>
+                <th style="width: 40%">Câu hỏi</th>
+                <th style="width: 40%">Đáp án</th>
+                <th style="width: 15%">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center fw-bold">@item.Id</td>
+                    <td>@item.QuestionText</td>
+                    <td>@item.AnswerText</td>
+                    <td>
+                        <a asp-controller="Admin" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Chỉnh sửa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

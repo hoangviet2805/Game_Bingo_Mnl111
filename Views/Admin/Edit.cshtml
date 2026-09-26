@@ -1,0 +1,38 @@
+@model BingoGame.Models.QuestionItem
+
+@{
+    ViewData["Title"] = "Chỉnh sửa câu hỏi " + Model.Id;
+}
+
+<div class="container mt-4">
+    <h2>Chỉnh sửa Câu hỏi Ô số @Model.Id</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="Id" />
+                
+                <div class="mb-3">
+                    <label asp-for="QuestionText" class="form-label">Nội dung câu hỏi</label>
+                    <textarea asp-for="QuestionText" class="form-control" rows="4" required></textarea>
+                    <span asp-validation-for="QuestionText" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AnswerText" class="form-label">Đáp án</label>
+                    <textarea asp-for="AnswerText" class="form-control" rows="3" required></textarea>
+                    <span asp-validation-for="AnswerText" class="text-danger"></span>
+                </div>
+
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+                    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

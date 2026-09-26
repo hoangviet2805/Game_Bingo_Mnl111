@@ -1,0 +1,138 @@
+@model IEnumerable<BingoGame.Models.QuestionItem>
+
+@{
+    ViewData["Title"] = "Bingo Game";
+}
+
+<style>
+    body {
+        background-color: #1e1e2f;
+        color: white;
+    }
+    .bingo-board {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .bingo-cell {
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        border-radius: 12px;
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: transform 0.2s, box-shadow 0.2s;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .bingo-cell:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 8px 25px rgba(167, 119, 227, 0.5);
+    }
+    .bingo-cell.opened {
+        background: linear-gradient(135deg, #2b5876, #4e4376);
+        color: #999;
+        text-shadow: none;
+    }
+    .modal-content {
+        background-color: #2a2a3c;
+        color: white;
+        border: 1px solid #444;
+        border-radius: 12px;
+    }
+    .modal-header {
+        border-bottom: 1px solid #444;
+    }
+    .modal-footer {
+        border-top: 1px solid #444;
+    }
+    .question-text {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    .answer-text {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #4CAF50;
+        display: none;
+        margin-top: 20px;
+        padding: 15px;
+        background: rgba(76, 175, 80, 0.1);
+        border-radius: 8px;
+        border-left: 5px solid #4CAF50;
+    }
+</style>
+
+<div class="text-center mt-4 mb-4">
+    <h1 class="display-4 fw-bold" style="color: #ff9a9e; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">BINGO GAME</h1>
+</div>
+
+<div class="bingo-board">
+    @foreach (var item in Model)
+    {
+        <div class="bingo-cell" 
+             data-id="@item.Id" 
+             data-question="@item.QuestionText" 
+             data-answer="@item.AnswerText"
+             onclick="openQuestion(this)">
+            @item.Id
+        </div>
+    }
+</div>
+
+<!-- Question Modal -->
+<div class="modal fade" id="questionModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fs-3 fw-bold text-warning" id="modalTitle">Câu hỏi</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center p-5">
+        <div class="question-text" id="modalQuestionText"></div>
+        <button class="btn btn-warning btn-lg px-5 mt-4 rounded-pill fw-bold" id="btnRevealAnswer" onclick="revealAnswer()">Xem Đáp Án</button>
+        <div class="answer-text" id="modalAnswerText"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+    <script>
+        let currentCell = null;
+
+        function openQuestion(element) {
+            currentCell = element;
+            const id = element.getAttribute('data-id');
+            const question = element.getAttribute('data-question');
+            const answer = element.getAttribute('data-answer');
+
+            document.getElementById('modalTitle').innerText = 'Câu hỏi số ' + id;
+            document.getElementById('modalQuestionText').innerText = question;
+            document.getElementById('modalAnswerText').innerText = answer;
+            
+            // Reset view
+            document.getElementById('modalAnswerText').style.display = 'none';
+            document.getElementById('btnRevealAnswer').style.display = 'inline-block';
+
+            var myModal = new bootstrap.Modal(document.getElementById('questionModal'));
+            myModal.show();
+        }
+
+        function revealAnswer() {
+            document.getElementById('btnRevealAnswer').style.display = 'none';
+            document.getElementById('modalAnswerText').style.display = 'block';
+            
+            // Mark cell as opened
+            if (currentCell) {
+                currentCell.classList.add('opened');
+            }
+        }
+    </script>
+}
