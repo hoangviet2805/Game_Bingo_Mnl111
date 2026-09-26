@@ -4,12 +4,17 @@
 @{
     ViewData["Title"] = "Bingo Game";
     var bgImage = SettingsService.GetBackgroundImage();
+    var isVideo = !string.IsNullOrEmpty(bgImage) && (
+                      bgImage.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || 
+                      bgImage.EndsWith(".webm", StringComparison.OrdinalIgnoreCase) || 
+                      bgImage.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase) ||
+                      bgImage.EndsWith(".mov", StringComparison.OrdinalIgnoreCase));
 }
 
 <style>
     body {
         background-color: #1e1e2f;
-        @if (!string.IsNullOrEmpty(bgImage)) {
+        @if (!string.IsNullOrEmpty(bgImage) && !isVideo) {
             <text>
             background-image: url('@bgImage?v=@DateTime.Now.Ticks');
             background-size: cover;
@@ -110,6 +115,13 @@
         100% { transform: translateX(0); }
     }
 </style>
+
+@if (isVideo)
+{
+    <video autoplay loop muted playsinline id="bg-video" style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -1000; object-fit: cover;">
+        <source src="@bgImage?v=@DateTime.Now.Ticks">
+    </video>
+}
 
 <div class="text-center mt-4 mb-4">
     <h1 class="display-4 fw-bold text-white" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8);">BINGO GAME</h1>
