@@ -39,6 +39,7 @@
         background: linear-gradient(135deg, #2b5876, #4e4376);
         color: #999;
         text-shadow: none;
+        pointer-events: none; /* Can't click again if correct */
     }
     .modal-content {
         background-color: #2a2a3c;
@@ -49,24 +50,54 @@
     .modal-header {
         border-bottom: 1px solid #444;
     }
-    .modal-footer {
-        border-top: 1px solid #444;
-    }
     .question-text {
         font-size: 3rem;
         line-height: 1.6;
         margin-bottom: 30px;
-    }
-    .answer-text {
-        font-size: 3.5rem;
         font-weight: bold;
-        color: #4CAF50;
+    }
+    .option-btn {
+        font-size: 2rem;
+        text-align: left;
+        padding: 20px 30px;
+        margin-bottom: 15px;
+        border-radius: 15px;
+        border: 2px solid #555;
+        background-color: #333;
+        color: white;
+        transition: all 0.2s;
+        cursor: pointer;
+        width: 100%;
+        display: block;
+    }
+    .option-btn:hover {
+        background-color: #444;
+        border-color: #777;
+    }
+    .option-btn.correct {
+        background-color: #2e7d32 !important;
+        border-color: #4caf50 !important;
+        color: white !important;
+    }
+    .option-btn.wrong {
+        background-color: #c62828 !important;
+        border-color: #ef5350 !important;
+        color: white !important;
+        animation: shake 0.4s;
+    }
+    .feedback-text {
+        font-size: 2.5rem;
+        font-weight: bold;
         display: none;
         margin-top: 20px;
-        padding: 15px;
-        background: rgba(76, 175, 80, 0.1);
-        border-radius: 8px;
-        border-left: 5px solid #4CAF50;
+        text-align: center;
+    }
+    @@keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        50% { transform: translateX(10px); }
+        75% { transform: translateX(-10px); }
+        100% { transform: translateX(0); }
     }
 </style>
 
@@ -80,7 +111,11 @@
         <div class="bingo-cell" 
              data-id="@item.Id" 
              data-question="@item.QuestionText" 
-             data-answer="@item.AnswerText"
+             data-opt-a="@item.OptionA"
+             data-opt-b="@item.OptionB"
+             data-opt-c="@item.OptionC"
+             data-opt-d="@item.OptionD"
+             data-correct="@item.CorrectOption"
              onclick="openQuestion(this)">
             @item.Id
         </div>
@@ -88,7 +123,7 @@
 </div>
 
 <!-- Question Modal -->
-<div class="modal fade" id="questionModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="questionModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered modal-xl" style="max-width: 90vw;">
     <div class="modal-content">
       <div class="modal-header">
@@ -97,10 +132,15 @@
       </div>
       <div class="modal-body p-5">
         <div class="question-text text-start" id="modalQuestionText"></div>
-        <div class="text-center">
-            <button class="btn btn-warning btn-lg px-5 mt-4 rounded-pill fw-bold" id="btnRevealAnswer" onclick="revealAnswer()">Xem Đáp Án</button>
+        
+        <div class="options-container mt-4">
+            <button class="option-btn" id="btnA" onclick="checkAnswer('A')"><span class="fw-bold text-warning me-3">A.</span><span id="textA"></span></button>
+            <button class="option-btn" id="btnB" onclick="checkAnswer('B')"><span class="fw-bold text-warning me-3">B.</span><span id="textB"></span></button>
+            <button class="option-btn" id="btnC" onclick="checkAnswer('C')"><span class="fw-bold text-warning me-3">C.</span><span id="textC"></span></button>
+            <button class="option-btn" id="btnD" onclick="checkAnswer('D')"><span class="fw-bold text-warning me-3">D.</span><span id="textD"></span></button>
         </div>
-        <div class="answer-text text-center" id="modalAnswerText"></div>
+
+        <div class="feedback-text" id="feedbackText"></div>
       </div>
     </div>
   </div>
@@ -109,38 +149,77 @@
 @section Scripts {
     <script>
         let currentCell = null;
+        let correctOption = '';
+        let myModal = null;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            myModal = new bootstrap.Modal(document.getElementById('questionModal'));
+        });
 
         function openQuestion(element) {
             currentCell = element;
             const id = element.getAttribute('data-id');
             const question = element.getAttribute('data-question') || '';
-            const answer = element.getAttribute('data-answer');
+            const optA = element.getAttribute('data-opt-a') || '';
+            const optB = element.getAttribute('data-opt-b') || '';
+            const optC = element.getAttribute('data-opt-c') || '';
+            const optD = element.getAttribute('data-opt-d') || '';
+            correctOption = element.getAttribute('data-correct') || '';
 
             document.getElementById('modalTitle').innerText = 'Câu hỏi số ' + id;
+            document.getElementById('modalQuestionText').innerText = question;
+            document.getElementById('textA').innerText = optA;
+            document.getElementById('textB').innerText = optB;
+            document.getElementById('textC').innerText = optC;
+            document.getElementById('textD').innerText = optD;
             
-            const lines = question.split(/\r?\n/);
-            if (lines.length > 0 && lines[0].trim() !== '') {
-                lines[0] = '<strong>' + lines[0] + '</strong>';
-            }
-            document.getElementById('modalQuestionText').innerHTML = lines.join('<br>');
+            // Reset buttons state
+            ['A', 'B', 'C', 'D'].forEach(opt => {
+                const btn = document.getElementById('btn' + opt);
+                btn.className = 'option-btn'; // remove correct/wrong classes
+                btn.style.backgroundColor = '';
+                btn.style.borderColor = '';
+                btn.disabled = false;
+            });
             
-            document.getElementById('modalAnswerText').innerText = answer;
-            
-            // Reset view
-            document.getElementById('modalAnswerText').style.display = 'none';
-            document.getElementById('btnRevealAnswer').style.display = 'inline-block';
+            const feedback = document.getElementById('feedbackText');
+            feedback.style.display = 'none';
 
-            var myModal = new bootstrap.Modal(document.getElementById('questionModal'));
             myModal.show();
         }
 
-        function revealAnswer() {
-            document.getElementById('btnRevealAnswer').style.display = 'none';
-            document.getElementById('modalAnswerText').style.display = 'block';
-            
-            // Mark cell as opened
-            if (currentCell) {
-                currentCell.classList.add('opened');
+        function checkAnswer(selectedOpt) {
+            const btn = document.getElementById('btn' + selectedOpt);
+            const feedback = document.getElementById('feedbackText');
+            feedback.style.display = 'block';
+
+            if (selectedOpt === correctOption) {
+                // Đúng
+                btn.classList.add('correct');
+                feedback.innerText = "🎉 CHÍNH XÁC!";
+                feedback.style.color = "#4CAF50";
+                
+                // Disable all other buttons
+                ['A', 'B', 'C', 'D'].forEach(opt => {
+                    document.getElementById('btn' + opt).disabled = true;
+                });
+
+                // Mark cell as opened
+                if (currentCell) {
+                    currentCell.classList.add('opened');
+                }
+            } else {
+                // Sai
+                btn.classList.add('wrong');
+                feedback.innerText = "❌ SAI RỒI! Hãy chọn lại.";
+                feedback.style.color = "#f44336";
+                
+                // Remove the wrong class after animation so it can be animated again if needed
+                setTimeout(() => {
+                    btn.classList.remove('wrong');
+                    btn.style.backgroundColor = "#c62828";
+                    btn.style.borderColor = "#ef5350";
+                }, 400);
             }
         }
     </script>

@@ -35,7 +35,13 @@
                 <tr>
                     <td class="text-center fw-bold">@item.Id</td>
                     <td>@item.QuestionText</td>
-                    <td>@item.AnswerText</td>
+                    <td>
+                        <strong class="text-success">Đúng: @item.CorrectOption</strong><br/>
+                        A: @item.OptionA<br/>
+                        B: @item.OptionB<br/>
+                        C: @item.OptionC<br/>
+                        D: @item.OptionD
+                    </td>
                     <td>
                         <a asp-controller="Admin" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Chỉnh sửa</a>
                     </td>

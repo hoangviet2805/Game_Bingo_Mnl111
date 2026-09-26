@@ -1,82 +1,146 @@
 [
   {
     "Id": 1,
-    "QuestionText": "Nh\u00E0 n\u01B0\u1EDBc thu thu\u1EBF ch\u1EE7 y\u1EBFu \u0111\u1EC3 l\u00E0m g\u00EC?\r\nA. T\u0103ng l\u1EE3i nhu\u1EADn cho doanh nghi\u1EC7p\r\nB. Duy tr\u00EC b\u1ED9 m\u00E1y nh\u00E0 n\u01B0\u1EDBc v\u00E0 th\u1EF1c hi\u1EC7n c\u00E1c ho\u1EA1t \u0111\u1ED9ng chung\r\nC. Chia \u0111\u1EC1u ti\u1EC1n cho m\u1ECDi ng\u01B0\u1EDDi\r\nD. Thay th\u1EBF ho\u00E0n to\u00E0n ho\u1EA1t \u0111\u1ED9ng kinh doanh\r\n",
-    "AnswerText": "B. Duy tr\u00EC b\u1ED9 m\u00E1y nh\u00E0 n\u01B0\u1EDBc v\u00E0 th\u1EF1c hi\u1EC7n c\u00E1c ho\u1EA1t \u0111\u1ED9ng chung"
+    "QuestionText": "Nh\u00E0 n\u01B0\u1EDBc thu thu\u1EBF ch\u1EE7 y\u1EBFu \u0111\u1EC3 l\u00E0m g\u00EC?\r\n",
+    "OptionA": "T\u0103ng l\u1EE3i nhu\u1EADn cho doanh nghi\u1EC7p",
+    "OptionB": "Duy tr\u00EC b\u1ED9 m\u00E1y nh\u00E0 n\u01B0\u1EDBc v\u00E0 th\u1EF1c hi\u1EC7n c\u00E1c ho\u1EA1t \u0111\u1ED9ng chung",
+    "OptionC": "Chia \u0111\u1EC1u ti\u1EC1n cho m\u1ECDi ng\u01B0\u1EDDi",
+    "OptionD": "Thay th\u1EBF ho\u00E0n to\u00E0n ho\u1EA1t \u0111\u1ED9ng kinh doanh",
+    "CorrectOption": "B"
   },
   {
     "Id": 2,
     "QuestionText": "Ch\u1EE9c n\u0103ng n\u00E0o c\u1EE7a Nh\u00E0 n\u01B0\u1EDBc nh\u1EB1m b\u1EA3o v\u1EC7 \u0111\u1ECBa v\u1ECB v\u00E0 l\u1EE3i \u00EDch c\u1EE7a giai c\u1EA5p c\u1EA7m quy\u1EC1n?\r\nA. Ch\u1EE9c n\u0103ng x\u00E3 h\u1ED9i\r\nB. Ch\u1EE9c n\u0103ng \u0111\u1ED1i ngo\u1EA1i\r\nC. Ch\u1EE9c n\u0103ng th\u1ED1ng tr\u1ECB ch\u00EDnh tr\u1ECB\r\nD. Ch\u1EE9c n\u0103ng gi\u00E1o d\u1EE5c\r\n",
-    "AnswerText": "C. Ch\u1EE9c n\u0103ng th\u1ED1ng tr\u1ECB ch\u00EDnh tr\u1ECB"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 3,
     "QuestionText": "C\u00E2u h\u1ECFi 3 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 3 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 4,
     "QuestionText": "C\u00E2u h\u1ECFi 4 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 4 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 5,
     "QuestionText": "C\u00E2u h\u1ECFi 5 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 5 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 6,
     "QuestionText": "C\u00E2u h\u1ECFi 6 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 6 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 7,
     "QuestionText": "C\u00E2u h\u1ECFi 7 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 7 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 8,
     "QuestionText": "C\u00E2u h\u1ECFi 8 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 8 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 9,
     "QuestionText": "C\u00E2u h\u1ECFi 9 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 9 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 10,
     "QuestionText": "C\u00E2u h\u1ECFi 10 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 10 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 11,
     "QuestionText": "C\u00E2u h\u1ECFi 11 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 11 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 12,
     "QuestionText": "C\u00E2u h\u1ECFi 12 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 12 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 13,
     "QuestionText": "C\u00E2u h\u1ECFi 13 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 13 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 14,
     "QuestionText": "C\u00E2u h\u1ECFi 14 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 14 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 15,
     "QuestionText": "C\u00E2u h\u1ECFi 15 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 15 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   },
   {
     "Id": 16,
     "QuestionText": "C\u00E2u h\u1ECFi 16 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "AnswerText": "\u0110\u00E1p \u00E1n 16 - Nh\u1EADp n\u1ED9i dung \u0111\u00E1p \u00E1n t\u1EA1i \u0111\u00E2y"
+    "OptionA": null,
+    "OptionB": null,
+    "OptionC": null,
+    "OptionD": null,
+    "CorrectOption": null
   }
 ]

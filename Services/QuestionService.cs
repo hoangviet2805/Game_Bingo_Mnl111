@@ -37,7 +37,11 @@ namespace BingoGame.Services
                 {
                     Id = i,
                     QuestionText = $"Câu hỏi {i} - Nhập nội dung câu hỏi tại đây",
-                    AnswerText = $"Đáp án {i} - Nhập nội dung đáp án tại đây"
+                    OptionA = "Đáp án A",
+                    OptionB = "Đáp án B",
+                    OptionC = "Đáp án C",
+                    OptionD = "Đáp án D",
+                    CorrectOption = "A"
                 }).ToList();
                 SaveQuestions(defaultQuestions);
                 return defaultQuestions;
