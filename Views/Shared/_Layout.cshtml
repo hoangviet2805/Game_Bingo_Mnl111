@@ -39,6 +39,14 @@
                             <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Audio">Quản lý âm thanh</a>
                         </li>
                     </ul>
+                    <div class="d-flex align-items-center">
+                        <button id="reloadMusicBtn" class="btn btn-link text-white p-0 ms-3" title="Phát lại nhạc từ bài 1" onclick="if(window.reloadMusic) window.reloadMusic();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -85,6 +93,18 @@
                 if (audio && audioList.length > 0) {
                     var currentTrackIndex = 0;
                     var currentTrackPlayCount = 0;
+                    
+                    window.reloadMusic = function() {
+                        currentTrackIndex = 0;
+                        currentTrackPlayCount = 0;
+                        sessionStorage.setItem('bgAudioCurrentIndex', '0');
+                        sessionStorage.setItem('bgAudioCurrentPlayCount', '0');
+                        sessionStorage.setItem('bgAudioCurrentTime', '0');
+                        
+                        audio.src = audioList[currentTrackIndex].Url || audioList[currentTrackIndex].url;
+                        audio.currentTime = 0;
+                        audio.play().catch(e => console.log('Play blocked: ', e));
+                    };
                     
                     var savedIndex = sessionStorage.getItem('bgAudioCurrentIndex');
                     if (savedIndex !== null) {
