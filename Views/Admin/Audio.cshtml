@@ -1,5 +1,6 @@
 @{
     ViewData["Title"] = "Quản lý âm thanh";
+    var audios = ViewBag.BackgroundAudios as List<BingoGame.Models.AudioTrack> ?? new List<BingoGame.Models.AudioTrack>();
 }
 
 <div class="container mt-4">
@@ -9,30 +10,98 @@
     <div class="card bg-dark text-white mb-4">
         <div class="card-body">
             <h5 class="card-title text-info">Âm thanh nền (Nhạc nền)</h5>
-            <p class="card-text">Tải lên một file âm thanh (mp3, wav,...) để làm nhạc nền cho trò chơi. Nhạc sẽ tự động phát và lặp đi lặp lại.</p>
+            <p class="card-text">Tải lên file âm thanh (mp3, wav,...) để thêm vào danh sách phát nhạc nền cho trò chơi. Bạn có thể chỉ định số lần lặp lại cho mỗi bài hát trước khi chuyển sang bài tiếp theo.</p>
             
             <form asp-action="UploadAudio" method="post" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="backgroundAudio" class="form-label">Chọn file âm thanh</label>
-                    <input class="form-control bg-secondary text-white" type="file" id="backgroundAudio" name="backgroundAudio" accept="audio/*" required>
+                <div class="row align-items-end mb-3">
+                    <div class="col-md-8">
+                        <label for="backgroundAudio" class="form-label">Chọn file âm thanh</label>
+                        <input class="form-control bg-secondary text-white" type="file" id="backgroundAudio" name="backgroundAudio" accept="audio/*" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="repeatCount" class="form-label">Số lần phát</label>
+                        <input type="number" class="form-control bg-secondary text-white" id="repeatCount" name="repeatCount" value="1" min="1" required>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Tải lên và Lưu</button>
+                <button type="submit" class="btn btn-primary">Thêm vào danh sách</button>
             </form>
 
-            <form asp-action="ResetAudio" method="post" class="mt-3">
-                <button type="submit" class="btn btn-outline-light">Tắt nhạc nền</button>
+            <form asp-action="ResetAudio" method="post" class="mt-3" id="resetAudioForm">
+                <button type="button" class="btn btn-outline-light" onclick="confirmReset()">Xóa toàn bộ nhạc nền</button>
             </form>
 
-            @if (!string.IsNullOrEmpty(ViewBag.BackgroundAudio as string))
+            @if (audios.Any())
             {
                 <div class="mt-4">
-                    <h6>Âm thanh hiện tại:</h6>
-                    <audio controls loop>
-                        <source src="@ViewBag.BackgroundAudio" type="audio/mpeg">
-                        Trình duyệt của bạn không hỗ trợ thẻ audio.
-                    </audio>
+                    <h6>Danh sách phát hiện tại (@audios.Count bài):</h6>
+                    <ul class="list-group list-group-flush bg-dark">
+                        @for (int i = 0; i < audios.Count; i++)
+                        {
+                            var track = audios[i];
+                            <li class="list-group-item bg-dark text-white border-secondary">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-3">Bài @(i + 1):</span>
+                                        <form asp-action="UpdateAudioRepeatCount" method="post" class="d-flex align-items-center m-0">
+                                            <input type="hidden" name="index" value="@i" />
+                                            <label for="repeatCount-@i" class="me-2 mb-0">Phát</label>
+                                            <input type="number" name="repeatCount" id="repeatCount-@i" class="form-control form-control-sm bg-secondary text-white text-center me-2" style="width: 65px;" value="@track.RepeatCount" min="1" required>
+                                            <span class="me-3">lần</span>
+                                            <button type="submit" class="btn btn-outline-info btn-sm">Lưu</button>
+                                        </form>
+                                    </div>
+                                    <form asp-action="RemoveAudio" method="post" class="m-0" id="deleteForm-@i">
+                                        <input type="hidden" name="index" value="@i" />
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(@i)">Xóa</button>
+                                    </form>
+                                </div>
+                                <audio controls class="w-100 mt-2">
+                                    <source src="@track.Url" type="audio/mpeg">
+                                    Trình duyệt của bạn không hỗ trợ thẻ audio.
+                                </audio>
+                            </li>
+                        }
+                    </ul>
                 </div>
             }
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function confirmDelete(index) {
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: "Bạn có chắc chắn muốn xóa bài nhạc này khỏi danh sách phát không? Hành động này không thể hoàn tác.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Xóa bài nhạc',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteForm-' + index).submit();
+                }
+            });
+        }
+
+        function confirmReset() {
+            Swal.fire({
+                title: 'Xác nhận xóa toàn bộ',
+                text: "Bạn có chắc chắn muốn xóa TẤT CẢ nhạc nền không? Hành động này không thể hoàn tác.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Xóa tất cả',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('resetAudioForm').submit();
+                }
+            });
+        }
+    </script>
+}

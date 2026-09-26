@@ -2,7 +2,7 @@
 <html lang="en">
 @inject BingoGame.Services.SettingsService SettingsService
 @{
-    var bgAudio = SettingsService.GetBackgroundAudio();
+    var bgAudios = SettingsService.GetBackgroundAudios();
 }
 <head>
     <meta charset="utf-8" />
@@ -57,15 +57,53 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @if (!string.IsNullOrEmpty(bgAudio)) {
-        <audio id="globalBgAudio" loop autoplay>
-            <source src="@bgAudio" type="audio/mpeg">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: '@Html.Raw(TempData["SuccessMessage"])',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            });
+        </script>
+    }
+
+    @if (bgAudios != null && bgAudios.Any()) {
+        <audio id="globalBgAudio" autoplay>
         </audio>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                var audioList = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(bgAudios));
                 var audio = document.getElementById('globalBgAudio');
-                if (audio) {
-                    // Khôi phục thời gian phát từ sessionStorage
+                
+                if (audio && audioList.length > 0) {
+                    var currentTrackIndex = 0;
+                    var currentTrackPlayCount = 0;
+                    
+                    var savedIndex = sessionStorage.getItem('bgAudioCurrentIndex');
+                    if (savedIndex !== null) {
+                        var index = parseInt(savedIndex);
+                        if (!isNaN(index) && index < audioList.length) {
+                            currentTrackIndex = index;
+                        }
+                    }
+
+                    var savedPlayCount = sessionStorage.getItem('bgAudioCurrentPlayCount');
+                    if (savedPlayCount !== null) {
+                        var count = parseInt(savedPlayCount);
+                        if (!isNaN(count)) {
+                            currentTrackPlayCount = count;
+                        }
+                    }
+
+                    audio.src = audioList[currentTrackIndex].Url || audioList[currentTrackIndex].url; // Support PascalCase or camelCase
+
                     var savedTime = sessionStorage.getItem('bgAudioCurrentTime');
                     if (savedTime) {
                         audio.currentTime = parseFloat(savedTime);
@@ -75,17 +113,33 @@
                         audio.play().catch(e => console.log('Autoplay blocked: ', e));
                     };
 
-                    // Lưu thời gian phát liên tục
                     audio.addEventListener('timeupdate', function() {
                         sessionStorage.setItem('bgAudioCurrentTime', audio.currentTime);
+                        sessionStorage.setItem('bgAudioCurrentIndex', currentTrackIndex);
+                        sessionStorage.setItem('bgAudioCurrentPlayCount', currentTrackPlayCount);
                     });
 
-                    // Xử lý khi trình duyệt chặn autoplay ở lần đầu tiên truy cập
+                    audio.addEventListener('ended', function() {
+                        var maxRepeat = audioList[currentTrackIndex].RepeatCount || audioList[currentTrackIndex].repeatCount || 1;
+                        currentTrackPlayCount++;
+
+                        if (currentTrackPlayCount >= maxRepeat) {
+                            currentTrackPlayCount = 0;
+                            currentTrackIndex = (currentTrackIndex + 1) % audioList.length;
+                            audio.src = audioList[currentTrackIndex].Url || audioList[currentTrackIndex].url;
+                        }
+                        
+                        audio.currentTime = 0;
+                        playAudio();
+                    });
+
                     document.addEventListener('click', function() {
                         if (audio.paused) {
                             playAudio();
                         }
                     }, { once: true });
+                    
+                    playAudio();
                 }
             });
         </script>

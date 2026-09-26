@@ -112,7 +112,7 @@
 </style>
 
 <div class="text-center mt-4 mb-4">
-    <h1 class="display-4 fw-bold" style="color: #ff9a9e; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">BINGO GAME</h1>
+    <h1 class="display-4 fw-bold text-white" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8);">BINGO GAME</h1>
 </div>
 
 <div class="bingo-board">
@@ -136,9 +136,14 @@
 <div class="modal fade" id="questionModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered modal-xl" style="max-width: 90vw;">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header align-items-center">
         <h5 class="modal-title display-5 fw-bold text-warning" id="modalTitle">Câu hỏi</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="d-flex align-items-center">
+            <button id="toggleAudioBtn" class="btn btn-outline-light me-3" style="border:none; font-size: 1.8rem; background:transparent; padding: 0;" onclick="toggleBackgroundAudio()" title="Bật/Tắt âm thanh">
+                <span id="audioIcon">🔊</span>
+            </button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
       </div>
       <div class="modal-body p-5">
         <div class="question-text text-start" id="modalQuestionText"></div>
@@ -166,6 +171,21 @@
             myModal = new bootstrap.Modal(document.getElementById('questionModal'));
         });
 
+        function toggleBackgroundAudio() {
+            var audio = document.getElementById('globalBgAudio');
+            var icon = document.getElementById('audioIcon');
+            if (audio) {
+                if (audio.muted || audio.paused) {
+                    audio.muted = false;
+                    audio.play().catch(e => console.log(e));
+                    icon.innerText = '🔊';
+                } else {
+                    audio.muted = true;
+                    icon.innerText = '🔇';
+                }
+            }
+        }
+
         function openQuestion(element) {
             currentCell = element;
             const id = element.getAttribute('data-id');
@@ -178,6 +198,12 @@
 
             document.getElementById('modalTitle').innerText = 'Câu hỏi số ' + id;
             document.getElementById('modalQuestionText').innerText = question;
+
+            var audio = document.getElementById('globalBgAudio');
+            var icon = document.getElementById('audioIcon');
+            if (audio && icon) {
+                icon.innerText = (audio.muted || audio.paused) ? '🔇' : '🔊';
+            }
             document.getElementById('textA').innerText = optA;
             document.getElementById('textB').innerText = optB;
             document.getElementById('textC').innerText = optC;

@@ -31,8 +31,9 @@ namespace BingoGame.Services
             return "";
         }
 
-        public string GetBackgroundAudio()
+        public List<BingoGame.Models.AudioTrack> GetBackgroundAudios()
         {
+            var result = new List<BingoGame.Models.AudioTrack>();
             if (File.Exists(_settingsPath))
             {
                 try {
@@ -40,13 +41,25 @@ namespace BingoGame.Services
                     var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
                     if (dict != null && dict.TryGetValue("BackgroundAudio", out var audioUrl))
                     {
-                        return audioUrl;
+                        if (string.IsNullOrEmpty(audioUrl)) return result;
+                        var parts = audioUrl.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                        foreach (var part in parts)
+                        {
+                            var subparts = part.Split(';');
+                            if (subparts.Length >= 2 && int.TryParse(subparts[1], out int count))
+                            {
+                                result.Add(new BingoGame.Models.AudioTrack { Url = subparts[0], RepeatCount = count });
+                            }
+                            else
+                            {
+                                result.Add(new BingoGame.Models.AudioTrack { Url = subparts[0], RepeatCount = 1 });
+                            }
+                        }
                     }
                 } catch {
-                    return "";
                 }
             }
-            return "";
+            return result;
         }
 
         public void SetBackgroundImage(string url)
@@ -65,7 +78,7 @@ namespace BingoGame.Services
             File.WriteAllText(_settingsPath, JsonSerializer.Serialize(dict, options));
         }
 
-        public void SetBackgroundAudio(string url)
+        public void SetBackgroundAudios(List<BingoGame.Models.AudioTrack> tracks)
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
             Dictionary<string, string> dict = new Dictionary<string, string>();
@@ -77,7 +90,8 @@ namespace BingoGame.Services
                     dict = new Dictionary<string, string>();
                 }
             }
-            dict["BackgroundAudio"] = url;
+            var stringParts = System.Linq.Enumerable.Select(tracks, t => $"{t.Url};{t.RepeatCount}");
+            dict["BackgroundAudio"] = string.Join("|", stringParts);
             File.WriteAllText(_settingsPath, JsonSerializer.Serialize(dict, options));
         }
     }
