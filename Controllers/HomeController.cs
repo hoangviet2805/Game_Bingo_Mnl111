@@ -21,6 +21,20 @@ public class HomeController : Controller
         return View(questions);
     }
 
+    [HttpGet]
+    public IActionResult Rules()
+    {
+        var rules = _questionService.GetRules();
+        return View((object)rules);
+    }
+
+    [HttpPost]
+    public IActionResult SaveRules(string rules)
+    {
+        _questionService.SaveRules(rules);
+        return RedirectToAction("Rules");
+    }
+
     public IActionResult Privacy()
     {
         return View();

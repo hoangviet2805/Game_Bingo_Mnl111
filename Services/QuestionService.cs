@@ -7,10 +7,26 @@ namespace BingoGame.Services
     public class QuestionService
     {
         private readonly string _filePath;
+        private readonly string _rulePath;
 
         public QuestionService(Microsoft.AspNetCore.Hosting.IWebHostEnvironment env)
         {
             _filePath = Path.Combine(env.ContentRootPath, "questions.json");
+            _rulePath = Path.Combine(env.ContentRootPath, "rules.txt");
+        }
+
+        public string GetRules()
+        {
+            if (File.Exists(_rulePath))
+            {
+                return File.ReadAllText(_rulePath);
+            }
+            return "Luật chơi chưa được thiết lập. Hãy nhấn nút Chỉnh sửa để thêm luật chơi.";
+        }
+
+        public void SaveRules(string rules)
+        {
+            File.WriteAllText(_rulePath, rules ?? "");
         }
 
         public List<QuestionItem> GetQuestions()

@@ -1,0 +1,101 @@
+@model string
+
+@{
+    ViewData["Title"] = "Luật chơi";
+}
+
+<style>
+    body {
+        background-color: #1a1a2e;
+        color: white;
+    }
+    .rules-container {
+        background: linear-gradient(145deg, #24243e, #1a1a2e);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+    .rules-container::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #ff9a9e, #fecfef, #a18cd1, #fbc2eb);
+    }
+    .rules-text {
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-size: 1.3rem;
+        line-height: 2.2;
+        letter-spacing: 0.5px;
+        color: #e2e8f0;
+        white-space: pre-wrap;
+    }
+    .rules-title {
+        color: #fbc2eb;
+        text-shadow: 2px 4px 6px rgba(0,0,0,0.5);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    .btn-edit {
+        transition: all 0.3s ease;
+    }
+    .btn-edit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1 class="display-4 fw-bold mb-0 rules-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-book-half me-3" viewBox="0 0 16 16" style="margin-top:-10px;">
+                <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+            </svg>
+            Luật Chơi
+        </h1>
+        <button class="btn btn-warning btn-lg fw-bold px-4 rounded-pill shadow btn-edit" onclick="toggleEdit()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square me-2" viewBox="0 0 16 16" style="margin-top:-3px;">
+              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            </svg>
+            Chỉnh sửa
+        </button>
+    </div>
+
+    <!-- Hiển thị luật chơi -->
+    <div id="displayMode" class="rules-container p-5 mb-5 mx-auto" style="max-width: 900px;">
+        <div class="rules-text">@Model</div>
+    </div>
+
+    <!-- Form chỉnh sửa (bị ẩn mặc định) -->
+    <div id="editMode" class="rules-container p-5 mb-5 mx-auto" style="display: none; max-width: 1000px;">
+        <form asp-action="SaveRules" method="post">
+            <h4 class="text-warning mb-4 fw-bold">Chỉnh sửa nội dung Luật chơi</h4>
+            <div class="mb-4">
+                <textarea name="rules" class="form-control text-white border-0 rounded-3" rows="18" style="background-color: #12121c; font-size: 1.2rem; line-height: 1.8; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);">@Model</textarea>
+            </div>
+            <div class="text-end mt-4">
+                <button type="button" class="btn btn-outline-light btn-lg me-3 px-5 rounded-pill" onclick="toggleEdit()">Hủy</button>
+                <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-lg" style="background: linear-gradient(45deg, #0d6efd, #00d2ff); border: none;">Lưu Lại</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function toggleEdit() {
+            var displayMode = document.getElementById('displayMode');
+            var editMode = document.getElementById('editMode');
+            if (displayMode.style.display === 'none') {
+                displayMode.style.display = 'block';
+                editMode.style.display = 'none';
+            } else {
+                displayMode.style.display = 'none';
+                editMode.style.display = 'block';
+            }
+        }
+    </script>
+}

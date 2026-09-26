@@ -1,0 +1,13 @@
+Mỗi bạn sẽ nhận 1 bảng Bingo gồm 16 ô trống.
+Bước 1: Điền ngẫu nhiên các số từ 1 đến 16 vào 16 ô, mỗi số chỉ xuất hiện 1 lần.
+Bước 2: Khi một ô số được chọn, câu hỏi tương ứng sẽ được đọc lên. Sau hiệu lệnh, mọi người giơ tay để giành quyền trả lời.
+Bước 3: Người được chọn trả lời:
+- Trả lời đúng → cả lớp gạch số đó trên bảng Bingo của mình. Người trả lời đúng sẽ được quyền chọn một ô số tiếp theo để mở.
+- Trả lời sai → tiếp tục để những người còn lại giơ tay giành quyền trả lời câu hỏi đó.
+Bước 4: Người vừa trả lời đúng chọn 1 số chưa được mở từ 1–16. Câu hỏi mới được đọc lên và trò chơi tiếp tục theo cách tương tự.
+Bước 5: Người đầu tiên gạch được 4 ô liên tiếp theo một trong 3 hướng:
+- Hàng ngang ↔
+- Hàng dọc ↕
+- Đường chéo ↘ ↙
+sẽ giơ tay và hô “BINGO!” 🎉
+Sau khi kiểm tra bảng, nếu chính xác thì người đó chiến thắng.
