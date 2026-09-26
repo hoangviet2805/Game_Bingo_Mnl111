@@ -53,11 +53,12 @@
         border-top: 1px solid #444;
     }
     .question-text {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
+        font-size: 3rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
     }
     .answer-text {
-        font-size: 1.5rem;
+        font-size: 3.5rem;
         font-weight: bold;
         color: #4CAF50;
         display: none;
@@ -88,16 +89,18 @@
 
 <!-- Question Modal -->
 <div class="modal fade" id="questionModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-xl" style="max-width: 90vw;">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fs-3 fw-bold text-warning" id="modalTitle">Câu hỏi</h5>
+        <h5 class="modal-title display-5 fw-bold text-warning" id="modalTitle">Câu hỏi</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body text-center p-5">
-        <div class="question-text" id="modalQuestionText"></div>
-        <button class="btn btn-warning btn-lg px-5 mt-4 rounded-pill fw-bold" id="btnRevealAnswer" onclick="revealAnswer()">Xem Đáp Án</button>
-        <div class="answer-text" id="modalAnswerText"></div>
+      <div class="modal-body p-5">
+        <div class="question-text text-start" id="modalQuestionText"></div>
+        <div class="text-center">
+            <button class="btn btn-warning btn-lg px-5 mt-4 rounded-pill fw-bold" id="btnRevealAnswer" onclick="revealAnswer()">Xem Đáp Án</button>
+        </div>
+        <div class="answer-text text-center" id="modalAnswerText"></div>
       </div>
     </div>
   </div>
@@ -110,11 +113,17 @@
         function openQuestion(element) {
             currentCell = element;
             const id = element.getAttribute('data-id');
-            const question = element.getAttribute('data-question');
+            const question = element.getAttribute('data-question') || '';
             const answer = element.getAttribute('data-answer');
 
             document.getElementById('modalTitle').innerText = 'Câu hỏi số ' + id;
-            document.getElementById('modalQuestionText').innerText = question;
+            
+            const lines = question.split(/\r?\n/);
+            if (lines.length > 0 && lines[0].trim() !== '') {
+                lines[0] = '<strong>' + lines[0] + '</strong>';
+            }
+            document.getElementById('modalQuestionText').innerHTML = lines.join('<br>');
+            
             document.getElementById('modalAnswerText').innerText = answer;
             
             // Reset view
