@@ -1,16 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using BingoGame.Models;
 using BingoGame.Services;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace BingoGame.Controllers
 {
     public class AdminController : Controller
     {
         private readonly QuestionService _questionService;
+        private readonly SettingsService _settingsService;
+        private readonly IWebHostEnvironment _env;
 
-        public AdminController(QuestionService questionService)
+        public AdminController(QuestionService questionService, SettingsService settingsService, IWebHostEnvironment env)
         {
             _questionService = questionService;
+            _settingsService = settingsService;
+            _env = env;
         }
 
         public IActionResult Index()
@@ -40,6 +48,44 @@ namespace BingoGame.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Appearance()
+        {
+            ViewBag.BackgroundImage = _settingsService.GetBackgroundImage();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadBackground(IFormFile backgroundImage)
+        {
+            if (backgroundImage != null && backgroundImage.Length > 0)
+            {
+                string ext = Path.GetExtension(backgroundImage.FileName);
+                string fileName = "bg" + ext;
+                
+                string uploadsFolder = Path.Combine(_env.WebRootPath, "images");
+                if (!Directory.Exists(uploadsFolder)) {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+                
+                string filePath = Path.Combine(uploadsFolder, fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await backgroundImage.CopyToAsync(stream);
+                }
+                
+                _settingsService.SetBackgroundImage($"/images/{fileName}");
+            }
+            return RedirectToAction("Appearance");
+        }
+
+        [HttpPost]
+        public IActionResult ResetBackground()
+        {
+            _settingsService.SetBackgroundImage("");
+            return RedirectToAction("Appearance");
         }
     }
 }

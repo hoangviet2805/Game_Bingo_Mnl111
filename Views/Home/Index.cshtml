@@ -1,12 +1,22 @@
 @model IEnumerable<BingoGame.Models.QuestionItem>
+@inject BingoGame.Services.SettingsService SettingsService
 
 @{
     ViewData["Title"] = "Bingo Game";
+    var bgImage = SettingsService.GetBackgroundImage();
 }
 
 <style>
     body {
         background-color: #1e1e2f;
+        @if (!string.IsNullOrEmpty(bgImage)) {
+            <text>
+            background-image: url('@bgImage?v=@DateTime.Now.Ticks');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            </text>
+        }
         color: white;
     }
     .bingo-board {

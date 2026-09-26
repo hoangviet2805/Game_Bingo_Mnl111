@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Quản lý giao diện";
+}
+
+<div class="container mt-4">
+    <h2>Quản lý giao diện</h2>
+    <hr />
+
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-body">
+            <h5 class="card-title text-warning">Hình nền Game Board</h5>
+            <p class="card-text">Tải lên một hình ảnh để thay thế hình nền mặc định cho trang Game Board (phía sau 16 ô).</p>
+            
+            <form asp-action="UploadBackground" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="backgroundImage" class="form-label">Chọn hình ảnh</label>
+                    <input class="form-control bg-secondary text-white" type="file" id="backgroundImage" name="backgroundImage" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Tải lên và Lưu</button>
+            </form>
+
+            <form asp-action="ResetBackground" method="post" class="mt-3">
+                <button type="submit" class="btn btn-outline-light">Dùng giao diện mặc định</button>
+            </form>
+
+            @if (!string.IsNullOrEmpty(ViewBag.BackgroundImage as string))
+            {
+                <div class="mt-4">
+                    <h6>Hình nền hiện tại:</h6>
+                    <img src="@ViewBag.BackgroundImage" alt="Background Image" class="img-fluid rounded" style="max-height: 300px; border: 2px solid #555;" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
