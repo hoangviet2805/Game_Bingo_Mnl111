@@ -1,7 +1,70 @@
 [
   {
     "Id": 1,
-    "QuestionText": "Nh\u00E0 n\u01B0\u1EDBc thu thu\u1EBF ch\u1EE7 y\u1EBFu \u0111\u1EC3 l\u00E0m g\u00EC?\r\n",
+    "QuestionText": "Theo l\u00FD lu\u1EADn Tri\u1EBFt h\u1ECDc M\u00E1c - L\u00EAnin, c\u01A1 s\u1EDF duy v\u1EADt ch\u1EE9ng minh cho ch\u1EE9c n\u0103ng \u0110\u1ED1i ngo\u1EA1i \u0026 H\u1ED9i nh\u1EADp qu\u1ED1c t\u1EBF c\u1EE7a Nh\u00E0 n\u01B0\u1EDBc l\u00E0 g\u00EC?",
+    "OptionA": "Quy lu\u1EADt L\u1EF1c l\u01B0\u1EE3ng s\u1EA3n xu\u1EA5t ph\u00F9 h\u1EE3p v\u1EDBi Quan h\u1EC7 s\u1EA3n xu\u1EA5t.",
+    "OptionB": "Nguy\u00EAn l\u00FD v\u1EC1 m\u1ED1i li\u00EAn h\u1EC7 ph\u1ED5 bi\u1EBFn v\u00E0 s\u1EF1 t\u01B0\u01A1ng t\u00E1c gi\u1EEFa t\u1ED3n t\u1EA1i x\u00E3 h\u1ED9i trong ph\u1EA1m vi qu\u1ED1c t\u1EBF. ",
+    "OptionC": "Quy lu\u1EADt Ph\u1EE7 \u0111\u1ECBnh c\u1EE7a ph\u1EE7 \u0111\u1ECBnh v\u00E0 nguy\u00EAn l\u00FD v\u1EC1 s\u1EF1 ph\u00E1t tri\u1EC3n. ",
+    "OptionD": " S\u1EF1 ph\u00E1t tri\u1EC3n t\u1EF1 ph\u00E1t c\u1EE7a n\u1EC1n kinh t\u1EBF th\u1ECB tr\u01B0\u1EDDng t\u1EF1 do qu\u1ED1c t\u1EBF.",
+    "CorrectOption": "B"
+  },
+  {
+    "Id": 2,
+    "QuestionText": "L\u1EF1c l\u01B0\u1EE3ng s\u1EA3n xu\u1EA5t mang t\u00EDnh to\u00E0n c\u1EA7u h\u00F3a \u0111\u1EB7t ra y\u00EAu c\u1EA7u g\u00EC \u0111\u1ED1i v\u1EDBi Ki\u1EBFn tr\u00FAc th\u01B0\u1EE3ng t\u1EA7ng (Nh\u00E0 n\u01B0\u1EDBc) trong ch\u1EE9c n\u0103ng \u0111\u1ED1i ngo\u1EA1i?",
+    "OptionA": "Ph\u1EA3i \u0111\u00F3ng c\u1EEDa n\u1EC1n kinh t\u1EBF \u0111\u1EC3 b\u1EA3o h\u1ED9 tuy\u1EC7t \u0111\u1ED1i c\u00E1c ng\u00E0nh s\u1EA3n xu\u1EA5t trong n\u01B0\u1EDBc.",
+    "OptionB": "B\u1EAFt bu\u1ED9c ph\u1EA3i chuy\u1EC3n giao to\u00E0n b\u1ED9 quy\u1EC1n qu\u1EA3n l\u00FD kinh t\u1EBF cho c\u00E1c t\u1ED5 ch\u1EE9c qu\u1ED1c t\u1EBF.",
+    "OptionC": "M\u1EDF r\u1ED9ng ch\u1EE9c n\u0103ng \u0111\u1ED1i ngo\u1EA1i, ch\u1EE7 \u0111\u1ED9ng h\u1ED9i nh\u1EADp \u0111\u1EC3 tranh th\u1EE7 ngu\u1ED3n l\u1EF1c b\u00EAn ngo\u00E0i ph\u00E1t tri\u1EC3n t\u1ED3n t\u1EA1i x\u00E3 h\u1ED9i b\u00EAn trong. ",
+    "OptionD": "T\u1EADp trung ho\u00E0n to\u00E0n v\u00E0o vi\u1EC7c x\u00E2y d\u1EF1ng l\u1EF1c l\u01B0\u1EE3ng qu\u00E2n s\u1EF1 \u0111\u1EC3 chu\u1EA9n b\u1ECB cho c\u00E1c xung \u0111\u1ED9t v\u0169 trang.",
+    "CorrectOption": "C"
+  },
+  {
+    "Id": 3,
+    "QuestionText": "Theo ch\u1EE7 ngh\u0129a M\u00E1c - L\u00EAnin, \u0111i\u1EC1u ki\u1EC7n c\u1ED1t l\u00F5i \u0111\u1EC3 Nh\u00E0 n\u01B0\u1EDBc \u0022t\u1EF1 ti\u00EAu vong\u0022 l\u00E0 khi n\u00E0o?",
+    "OptionA": "Khi m\u1ED9t giai c\u1EA5p th\u1ED1ng tr\u1ECB ho\u00E0n to\u00E0n \u0111\u00E1nh b\u1EA1i t\u1EA5t c\u1EA3 c\u00E1c giai c\u1EA5p \u0111\u1ED1i kh\u00E1ng.",
+    "OptionB": " Khi giai c\u1EA5p m\u1EA5t \u0111i, c\u1EE7a c\u1EA3i d\u1ED3i d\u00E0o, v\u00E0 \u00FD th\u1EE9c con ng\u01B0\u1EDDi \u0111\u1EA1t tr\u00ECnh \u0111\u1ED9 cao trong ch\u1EE7 ngh\u0129a c\u1ED9ng s\u1EA3n ho\u00E0n ch\u1EC9nh.",
+    "OptionC": "Khi c\u00E1c qu\u1ED1c gia tr\u00EAn th\u1EBF gi\u1EDBi x\u00F3a b\u1ECF ho\u00E0n to\u00E0n ranh gi\u1EDBi bi\u00EAn gi\u1EDBi h\u00E0nh ch\u00EDnh. ",
+    "OptionD": "Khi Nh\u00E0 n\u01B0\u1EDBc ph\u00E1p quy\u1EC1n x\u00E3 h\u1ED9i ch\u1EE7 ngh\u0129a ho\u00E0n th\u00E0nh vi\u1EC7c x\u00E2y d\u1EF1ng ph\u00E1p lu\u1EADt.",
+    "CorrectOption": "B"
+  },
+  {
+    "Id": 4,
+    "QuestionText": "C\u01A1 s\u1EDF duy v\u1EADt cho l\u00FD lu\u1EADn v\u1EC1 \u0022S\u1EF1 ti\u00EAu vong c\u1EE7a Nh\u00E0 n\u01B0\u1EDBc\u0022 trong Tri\u1EBFt h\u1ECDc M\u00E1c - L\u00EAnin d\u1EF1a tr\u00EAn c\u00E1c nguy\u00EAn l\u00FD/quy lu\u1EADt n\u00E0o?",
+    "OptionA": "Quy lu\u1EADt Ph\u1EE7 \u0111\u1ECBnh c\u1EE7a ph\u1EE7 \u0111\u1ECBnh v\u00E0 nguy\u00EAn l\u00FD v\u1EC1 S\u1EF1 v\u1EADn \u0111\u1ED9ng, ph\u00E1t tri\u1EC3n l\u1ECBch s\u1EED.",
+    "OptionB": "Quy lu\u1EADt Chuy\u1EC3n h\u00F3a t\u1EEB nh\u1EEFng thay \u0111\u1ED5i v\u1EC1 l\u01B0\u1EE3ng th\u00E0nh nh\u1EEFng thay \u0111\u1ED5i v\u1EC1 ch\u1EA5t. ",
+    "OptionC": "Nguy\u00EAn l\u00FD v\u1EC1 t\u00EDnh th\u1ED1ng nh\u1EA5t v\u1EADt ch\u1EA5t c\u1EE7a th\u1EBF gi\u1EDBi.",
+    "OptionD": "Quy lu\u1EADt Th\u1ED1ng nh\u1EA5t v\u00E0 \u0111\u1EA5u tranh c\u1EE7a c\u00E1c m\u1EB7t \u0111\u1ED1i l\u1EADp.",
+    "CorrectOption": "A"
+  },
+  {
+    "Id": 5,
+    "QuestionText": "Trong th\u1EDDi k\u1EF3 qu\u00E1 \u0111\u1ED9 hi\u1EC7n nay, vai tr\u00F2 c\u1EE7a Nh\u00E0 n\u01B0\u1EDBc \u0111\u01B0\u1EE3c x\u00E1c \u0111\u1ECBnh nh\u01B0 th\u1EBF n\u00E0o d\u1EF1a tr\u00EAn th\u1EF1c ti\u1EC5n l\u1EF1c l\u01B0\u1EE3ng s\u1EA3n xu\u1EA5t ch\u01B0a ph\u00E1t tri\u1EC3n c\u1EF1c \u0111\u1EA1i?",
+    "OptionA": "Nh\u00E0 n\u01B0\u1EDBc \u0111\u00E3 b\u1EAFt \u0111\u1EA7u qu\u00E1 tr\u00ECnh t\u1EF1 ti\u00EAu vong v\u00E0 kh\u00F4ng c\u00F2n n\u1EAFm gi\u1EEF b\u1ED9 m\u00E1y c\u01B0\u1EE1ng ch\u1EBF.",
+    "OptionB": "Nh\u00E0 n\u01B0\u1EDBc ch\u1EC9 \u0111\u00F3ng vai tr\u00F2 quan s\u00E1t, nh\u01B0\u1EDDng quy\u1EC1n \u0111i\u1EC1u ti\u1EBFt x\u00E3 h\u1ED9i cho c\u00E1c quy lu\u1EADt kinh t\u1EBF kh\u00E1ch quan.",
+    "OptionC": "Nh\u00E0 n\u01B0\u1EDBc v\u1EABn l\u00E0 c\u00F4ng c\u1EE5 qu\u1EA3n l\u00FD kinh t\u1EBF - x\u00E3 h\u1ED9i quan tr\u1ECDng nh\u1EA5t, c\u1EA7n ti\u1EBFp t\u1EE5c ho\u00E0n thi\u1EC7n Nh\u00E0 n\u01B0\u1EDBc ph\u00E1p quy\u1EC1n x\u00E3 h\u1ED9i ch\u1EE7 ngh\u0129a.",
+    "OptionD": "Nh\u00E0 n\u01B0\u1EDBc ch\u1EC9 t\u1EADp trung v\u00E0o ch\u1EE9c n\u0103ng \u0111\u1ED1i n\u1ED9i, gi\u1EA3m thi\u1EC3u t\u1ED1i \u0111a ch\u1EE9c n\u0103ng \u0111\u1ED1i ngo\u1EA1i.",
+    "CorrectOption": "C"
+  },
+  {
+    "Id": 6,
+    "QuestionText": "Nh\u00E0 n\u01B0\u1EDBc qu\u1EA3n l\u00FD d\u00E2n c\u01B0 ch\u1EE7 y\u1EBFu d\u1EF1a tr\u00EAn y\u1EBFu t\u1ED1 n\u00E0o?",
+    "OptionA": "Ngh\u1EC1 nghi\u1EC7p",
+    "OptionB": "T\u00F4n gi\u00E1o",
+    "OptionC": "L\u00E3nh th\u1ED5",
+    "OptionD": "\u0110\u1ED9 tu\u1ED5i",
+    "CorrectOption": "C"
+  },
+  {
+    "Id": 7,
+    "QuestionText": "\u0110\u00E2u l\u00E0 b\u1ED9 ph\u1EADn thu\u1ED9c b\u1ED9 m\u00E1y quy\u1EC1n l\u1EF1c chuy\u00EAn nghi\u1EC7p c\u1EE7a Nh\u00E0 n\u01B0\u1EDBc?",
+    "OptionA": "Qu\u00E2n \u0111\u1ED9i, c\u1EA3nh s\u00E1t, t\u00F2a \u00E1n",
+    "OptionB": "Doanh nghi\u1EC7p, si\u00EAu th\u1ECB, ng\u00E2n h\u00E0ng",
+    "OptionC": "Tr\u01B0\u1EDDng h\u1ECDc, gia \u0111\u00ECnh, c\u00E2u l\u1EA1c b\u1ED9",
+    "OptionD": "Nh\u00E0 m\u00E1y, c\u00F4ng ty, c\u1EEDa h\u00E0ng",
+    "CorrectOption": "A"
+  },
+  {
+    "Id": 8,
+    "QuestionText": "Nh\u00E0 n\u01B0\u1EDBc thu thu\u1EBF ch\u1EE7 y\u1EBFu \u0111\u1EC3 l\u00E0m g\u00EC?",
     "OptionA": "T\u0103ng l\u1EE3i nhu\u1EADn cho doanh nghi\u1EC7p",
     "OptionB": "Duy tr\u00EC b\u1ED9 m\u00E1y nh\u00E0 n\u01B0\u1EDBc v\u00E0 th\u1EF1c hi\u1EC7n c\u00E1c ho\u1EA1t \u0111\u1ED9ng chung",
     "OptionC": "Chia \u0111\u1EC1u ti\u1EC1n cho m\u1ECDi ng\u01B0\u1EDDi",
@@ -9,94 +72,31 @@
     "CorrectOption": "B"
   },
   {
-    "Id": 2,
-    "QuestionText": "Nh\u00E0 n\u01B0\u1EDBc thu thu\u1EBF ch\u1EE7 y\u1EBFu \u0111\u1EC3 l\u00E0m g\u00EC?",
-    "OptionA": "A: T\u0103ng l\u1EE3i nhu\u1EADn cho doanh nghi\u1EC7p",
-    "OptionB": "B: Duy tr\u00EC b\u1ED9 m\u00E1y nh\u00E0 n\u01B0\u1EDBc v\u00E0 th\u1EF1c hi\u1EC7n c\u00E1c ho\u1EA1t \u0111\u1ED9ng chung",
-    "OptionC": "C: Chia \u0111\u1EC1u ti\u1EC1n cho m\u1ECDi ng\u01B0\u1EDDi",
-    "OptionD": "D: Thay th\u1EBF ho\u00E0n to\u00E0n ho\u1EA1t \u0111\u1ED9ng kinh doanh",
-    "CorrectOption": "B"
-  },
-  {
-    "Id": 3,
-    "QuestionText": "C\u00E2u h\u1ECFi 3 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "OptionA": null,
-    "OptionB": null,
-    "OptionC": null,
-    "OptionD": null,
-    "CorrectOption": null
-  },
-  {
-    "Id": 4,
-    "QuestionText": "C\u00E2u h\u1ECFi 4 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "OptionA": null,
-    "OptionB": null,
-    "OptionC": null,
-    "OptionD": null,
-    "CorrectOption": null
-  },
-  {
-    "Id": 5,
-    "QuestionText": "C\u00E2u h\u1ECFi 5 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "OptionA": null,
-    "OptionB": null,
-    "OptionC": null,
-    "OptionD": null,
-    "CorrectOption": null
-  },
-  {
-    "Id": 6,
-    "QuestionText": "C\u00E2u h\u1ECFi 6 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "OptionA": null,
-    "OptionB": null,
-    "OptionC": null,
-    "OptionD": null,
-    "CorrectOption": null
-  },
-  {
-    "Id": 7,
-    "QuestionText": "C\u00E2u h\u1ECFi 7 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "OptionA": null,
-    "OptionB": null,
-    "OptionC": null,
-    "OptionD": null,
-    "CorrectOption": null
-  },
-  {
-    "Id": 8,
-    "QuestionText": "C\u00E2u h\u1ECFi 8 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "OptionA": null,
-    "OptionB": null,
-    "OptionC": null,
-    "OptionD": null,
-    "CorrectOption": null
-  },
-  {
     "Id": 9,
-    "QuestionText": "C\u00E2u h\u1ECFi 9 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "OptionA": null,
-    "OptionB": null,
-    "OptionC": null,
-    "OptionD": null,
-    "CorrectOption": null
+    "QuestionText": "Ch\u1EE9c n\u0103ng n\u00E0o c\u1EE7a Nh\u00E0 n\u01B0\u1EDBc nh\u1EB1m b\u1EA3o v\u1EC7 \u0111\u1ECBa v\u1ECB v\u00E0 l\u1EE3i \u00EDch c\u1EE7a giai c\u1EA5p c\u1EA7m quy\u1EC1n?",
+    "OptionA": "Ch\u1EE9c n\u0103ng x\u00E3 h\u1ED9i",
+    "OptionB": "Ch\u1EE9c n\u0103ng \u0111\u1ED1i ngo\u1EA1i",
+    "OptionC": "Ch\u1EE9c n\u0103ng th\u1ED1ng tr\u1ECB ch\u00EDnh tr\u1ECB",
+    "OptionD": "Ch\u1EE9c n\u0103ng gi\u00E1o d\u1EE5c",
+    "CorrectOption": "C"
   },
   {
     "Id": 10,
-    "QuestionText": "C\u00E2u h\u1ECFi 10 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "OptionA": null,
-    "OptionB": null,
-    "OptionC": null,
-    "OptionD": null,
-    "CorrectOption": null
+    "QuestionText": "Ho\u1EA1t \u0111\u1ED9ng n\u00E0o sau \u0111\u00E2y th\u1EC3 hi\u1EC7n r\u00F5 ch\u1EE9c n\u0103ng x\u00E3 h\u1ED9i c\u1EE7a Nh\u00E0 n\u01B0\u1EDBc?",
+    "OptionA": "X\u00E2y d\u1EF1ng b\u1EC7nh vi\u1EC7n v\u00E0 h\u1EC7 th\u1ED1ng giao th\u00F4ng",
+    "OptionB": "M\u1ED9t c\u00E1 nh\u00E2n m\u1EDF c\u1EEDa h\u00E0ng kinh doanh",
+    "OptionC": "M\u1ED9t gia \u0111\u00ECnh t\u1ED5 ch\u1EE9c sinh nh\u1EADt",
+    "OptionD": "M\u1ED9t nh\u00F3m b\u1EA1n \u0111i du l\u1ECBch",
+    "CorrectOption": "A"
   },
   {
     "Id": 11,
-    "QuestionText": "C\u00E2u h\u1ECFi 11 - Nh\u1EADp n\u1ED9i dung c\u00E2u h\u1ECFi t\u1EA1i \u0111\u00E2y",
-    "OptionA": null,
-    "OptionB": null,
-    "OptionC": null,
-    "OptionD": null,
-    "CorrectOption": null
+    "QuestionText": "Khi Nh\u00E0 n\u01B0\u1EDBc t\u1ED5 ch\u1EE9c ti\u00EAm v\u1EAFc-xin tr\u00EAn di\u1EC7n r\u1ED9ng ho\u1EB7c x\u00E2y d\u1EF1ng \u0111\u01B0\u1EDDng cao t\u1ED1c, \u0111i\u1EC1u \u0111\u00F3 th\u1EC3 hi\u1EC7n r\u00F5 nh\u1EA5t ch\u1EE9c n\u0103ng n\u00E0o?",
+    "OptionA": "Ch\u1EE9c n\u0103ng x\u00E3 h\u1ED9i",
+    "OptionB": "Ch\u1EE9c n\u0103ng th\u1ED1ng tr\u1ECB",
+    "OptionC": "Ch\u1EE9c n\u0103ng c\u00E1 nh\u00E2n",
+    "OptionD": "Ch\u1EE9c n\u0103ng kinh doanh",
+    "CorrectOption": "A"
   },
   {
     "Id": 12,
