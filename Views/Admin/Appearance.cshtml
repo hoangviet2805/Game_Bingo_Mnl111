@@ -13,8 +13,8 @@
             
             <form asp-action="UploadBackground" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="backgroundImage" class="form-label">Chọn hình ảnh / video</label>
-                    <input class="form-control bg-secondary text-white" type="file" id="backgroundImage" name="backgroundImage" accept="image/*,video/*" required>
+                    <label for="backgroundImages" class="form-label">Chọn hình ảnh / video (có thể chọn nhiều)</label>
+                    <input class="form-control bg-secondary text-white" type="file" id="backgroundImages" name="backgroundImages" accept="image/*,video/*" multiple required>
                 </div>
                 <button type="submit" class="btn btn-primary">Tải lên và Lưu</button>
             </form>
@@ -23,23 +23,41 @@
                 <button type="submit" class="btn btn-outline-light">Dùng giao diện mặc định</button>
             </form>
 
-            @if (!string.IsNullOrEmpty(ViewBag.BackgroundImage as string))
+            @if (ViewBag.BackgroundImages != null && ((List<string>)ViewBag.BackgroundImages).Count > 0)
             {
-                var bg = ViewBag.BackgroundImage as string;
-                var isVideo = bg.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || 
-                              bg.EndsWith(".webm", StringComparison.OrdinalIgnoreCase) || 
-                              bg.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase) ||
-                              bg.EndsWith(".mov", StringComparison.OrdinalIgnoreCase);
+                var bgs = (List<string>)ViewBag.BackgroundImages;
                 <div class="mt-4">
-                    <h6>Hình nền hiện tại:</h6>
-                    @if (isVideo)
-                    {
-                        <video src="@bg?v=@DateTime.Now.Ticks" autoplay loop muted playsinline class="img-fluid rounded" style="max-height: 300px; border: 2px solid #555;"></video>
-                    }
-                    else
-                    {
-                        <img src="@bg?v=@DateTime.Now.Ticks" alt="Background Image" class="img-fluid rounded" style="max-height: 300px; border: 2px solid #555;" />
-                    }
+                    <h6>Danh sách hình nền hiện tại (@bgs.Count file):</h6>
+                    <ul class="list-group list-group-flush bg-dark">
+                        @for (int i = 0; i < bgs.Count; i++)
+                        {
+                            var bg = bgs[i];
+                            var isVideo = bg.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || 
+                                          bg.EndsWith(".webm", StringComparison.OrdinalIgnoreCase) || 
+                                          bg.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase) ||
+                                          bg.EndsWith(".mov", StringComparison.OrdinalIgnoreCase);
+                            
+                            <li class="list-group-item bg-dark text-white border-secondary">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="me-3">File @(i + 1):</span>
+                                    <form asp-action="RemoveBackground" method="post" class="m-0">
+                                        <input type="hidden" name="index" value="@i" />
+                                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                    </form>
+                                </div>
+                                <div>
+                                    @if (isVideo)
+                                    {
+                                        <video src="@bg?v=@DateTime.Now.Ticks" autoplay loop muted playsinline class="img-fluid rounded" style="max-height: 150px; border: 2px solid #555;"></video>
+                                    }
+                                    else
+                                    {
+                                        <img src="@bg?v=@DateTime.Now.Ticks" alt="Background Image" class="img-fluid rounded" style="max-height: 150px; border: 2px solid #555;" />
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
                 </div>
             }
         </div>

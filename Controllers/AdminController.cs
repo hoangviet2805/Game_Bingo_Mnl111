@@ -54,40 +54,38 @@ namespace BingoGame.Controllers
         [HttpGet]
         public IActionResult Appearance()
         {
-            ViewBag.BackgroundImage = _settingsService.GetBackgroundImage();
+            ViewBag.BackgroundImages = _settingsService.GetBackgroundImages();
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadBackground(IFormFile backgroundImage)
+        public async Task<IActionResult> UploadBackground(List<IFormFile> backgroundImages)
         {
-            if (backgroundImage != null && backgroundImage.Length > 0)
+            if (backgroundImages != null && backgroundImages.Count > 0)
             {
-                string ext = Path.GetExtension(backgroundImage.FileName);
-                string fileName = "bg_" + DateTime.Now.Ticks + ext;
-                
                 string uploadsFolder = Path.Combine(_env.WebRootPath, "images");
                 if (!Directory.Exists(uploadsFolder)) {
                     Directory.CreateDirectory(uploadsFolder);
                 }
-
-                try 
+                
+                var urls = _settingsService.GetBackgroundImages();
+                foreach (var file in backgroundImages)
                 {
-                    var oldFiles = Directory.GetFiles(uploadsFolder, "bg_*");
-                    foreach (var oldFile in oldFiles)
+                    if (file.Length > 0)
                     {
-                        try { System.IO.File.Delete(oldFile); } catch { }
+                        string ext = Path.GetExtension(file.FileName);
+                        string fileName = "bg_" + Guid.NewGuid().ToString("N") + ext;
+                        string filePath = Path.Combine(uploadsFolder, fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        urls.Add($"/images/{fileName}");
                     }
                 }
-                catch { }
                 
-                string filePath = Path.Combine(uploadsFolder, fileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await backgroundImage.CopyToAsync(stream);
-                }
-                
-                _settingsService.SetBackgroundImage($"/images/{fileName}");
+                _settingsService.SetBackgroundImages(urls);
+                TempData["SuccessMessage"] = "Đã thêm hình nền vào danh sách thành công!";
             }
             return RedirectToAction("Appearance");
         }
@@ -95,7 +93,49 @@ namespace BingoGame.Controllers
         [HttpPost]
         public IActionResult ResetBackground()
         {
-            _settingsService.SetBackgroundImage("");
+            _settingsService.SetBackgroundImages(new List<string>());
+            
+            try 
+            {
+                string uploadsFolder = Path.Combine(_env.WebRootPath, "images");
+                if (Directory.Exists(uploadsFolder)) 
+                {
+                    var oldFiles = Directory.GetFiles(uploadsFolder, "bg_*");
+                    foreach (var oldFile in oldFiles)
+                    {
+                        try { System.IO.File.Delete(oldFile); } catch { }
+                    }
+                }
+            }
+            catch { }
+
+            TempData["SuccessMessage"] = "Đã xóa toàn bộ hình nền thành công!";
+            return RedirectToAction("Appearance");
+        }
+
+        [HttpPost]
+        public IActionResult RemoveBackground(int index)
+        {
+            var urls = _settingsService.GetBackgroundImages();
+            if (index >= 0 && index < urls.Count)
+            {
+                string url = urls[index];
+                urls.RemoveAt(index);
+                _settingsService.SetBackgroundImages(urls);
+                
+                try 
+                {
+                    string fileName = Path.GetFileName(url);
+                    string filePath = Path.Combine(_env.WebRootPath, "images", fileName);
+                    if (System.IO.File.Exists(filePath)) 
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                }
+                catch { }
+                
+                TempData["SuccessMessage"] = "Đã xóa hình nền thành công!";
+            }
             return RedirectToAction("Appearance");
         }
 

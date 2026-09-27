@@ -13,8 +13,9 @@ namespace BingoGame.Services
             _settingsPath = Path.Combine(env.ContentRootPath, "settings.json");
         }
 
-        public string GetBackgroundImage()
+        public List<string> GetBackgroundImages()
         {
+            var result = new List<string>();
             if (File.Exists(_settingsPath))
             {
                 try {
@@ -22,13 +23,14 @@ namespace BingoGame.Services
                     var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
                     if (dict != null && dict.TryGetValue("BackgroundImage", out var bgUrl))
                     {
-                        return bgUrl;
+                        if (string.IsNullOrEmpty(bgUrl)) return result;
+                        var parts = bgUrl.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                        result.AddRange(parts);
                     }
                 } catch {
-                    return "";
                 }
             }
-            return "";
+            return result;
         }
 
         public List<BingoGame.Models.AudioTrack> GetBackgroundAudios()
@@ -62,7 +64,7 @@ namespace BingoGame.Services
             return result;
         }
 
-        public void SetBackgroundImage(string url)
+        public void SetBackgroundImages(List<string> urls)
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
             Dictionary<string, string> dict = new Dictionary<string, string>();
@@ -74,7 +76,7 @@ namespace BingoGame.Services
                     dict = new Dictionary<string, string>();
                 }
             }
-            dict["BackgroundImage"] = url;
+            dict["BackgroundImage"] = string.Join("|", urls);
             File.WriteAllText(_settingsPath, JsonSerializer.Serialize(dict, options));
         }
 

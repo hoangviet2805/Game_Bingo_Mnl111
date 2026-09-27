@@ -40,6 +40,16 @@
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">
+                        <button id="toggleMusicBtn" class="btn btn-link text-white p-0 ms-3" title="Tạm dừng / Mở lại nhạc" onclick="if(window.toggleMusic) window.toggleMusic();">
+                            <svg id="musicIconOn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-volume-up-fill" viewBox="0 0 16 16">
+                              <path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z"/>
+                              <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.89z"/>
+                              <path d="M8.707 11.182A4.5 4.5 0 0 0 10.025 8a4.5 4.5 0 0 0-1.318-3.182L8 5.525A3.5 3.5 0 0 1 9.025 8 3.5 3.5 0 0 1 8 10.475zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06"/>
+                            </svg>
+                            <svg id="musicIconOff" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-volume-mute-fill d-none" viewBox="0 0 16 16">
+                              <path d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zm7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0z"/>
+                            </svg>
+                        </button>
                         <button id="reloadMusicBtn" class="btn btn-link text-white p-0 ms-3" title="Phát lại nhạc từ bài 1" onclick="if(window.reloadMusic) window.reloadMusic();">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
@@ -104,6 +114,21 @@
                         audio.src = audioList[currentTrackIndex].Url || audioList[currentTrackIndex].url;
                         audio.currentTime = 0;
                         audio.play().catch(e => console.log('Play blocked: ', e));
+                        
+                        document.getElementById('musicIconOn').classList.remove('d-none');
+                        document.getElementById('musicIconOff').classList.add('d-none');
+                    };
+                    
+                    window.toggleMusic = function() {
+                        if (audio.paused) {
+                            audio.play().catch(e => console.log('Play blocked: ', e));
+                            document.getElementById('musicIconOn').classList.remove('d-none');
+                            document.getElementById('musicIconOff').classList.add('d-none');
+                        } else {
+                            audio.pause();
+                            document.getElementById('musicIconOn').classList.add('d-none');
+                            document.getElementById('musicIconOff').classList.remove('d-none');
+                        }
                     };
                     
                     var savedIndex = sessionStorage.getItem('bgAudioCurrentIndex');
@@ -130,7 +155,14 @@
                     }
 
                     var playAudio = function() {
-                        audio.play().catch(e => console.log('Autoplay blocked: ', e));
+                        audio.play().then(() => {
+                            document.getElementById('musicIconOn').classList.remove('d-none');
+                            document.getElementById('musicIconOff').classList.add('d-none');
+                        }).catch(e => {
+                            console.log('Autoplay blocked: ', e);
+                            document.getElementById('musicIconOn').classList.add('d-none');
+                            document.getElementById('musicIconOff').classList.remove('d-none');
+                        });
                     };
 
                     audio.addEventListener('timeupdate', function() {

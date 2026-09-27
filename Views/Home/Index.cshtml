@@ -3,25 +3,12 @@
 
 @{
     ViewData["Title"] = "Bingo Game";
-    var bgImage = SettingsService.GetBackgroundImage();
-    var isVideo = !string.IsNullOrEmpty(bgImage) && (
-                      bgImage.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || 
-                      bgImage.EndsWith(".webm", StringComparison.OrdinalIgnoreCase) || 
-                      bgImage.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase) ||
-                      bgImage.EndsWith(".mov", StringComparison.OrdinalIgnoreCase));
+    var bgImages = SettingsService.GetBackgroundImages();
 }
 
 <style>
     body {
         background-color: #1e1e2f;
-        @if (!string.IsNullOrEmpty(bgImage) && !isVideo) {
-            <text>
-            background-image: url('@bgImage?v=@DateTime.Now.Ticks');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            </text>
-        }
         color: white;
     }
     .bingo-board {
@@ -116,12 +103,7 @@
     }
 </style>
 
-@if (isVideo)
-{
-    <video autoplay loop muted playsinline id="bg-video" style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -1000; object-fit: cover;">
-        <source src="@bgImage?v=@DateTime.Now.Ticks">
-    </video>
-}
+<div id="bg-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1000; overflow: hidden; background-color: #1e1e2f;"></div>
 
 <div class="text-center mt-4 mb-4">
     <h1 class="display-4 fw-bold text-white" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8);">BINGO GAME</h1>
@@ -178,10 +160,65 @@
         let currentCell = null;
         let correctOption = '';
         let myModal = null;
+        
+        const bgList = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(bgImages));
+        let currentBgIndex = 0;
+        let bgTimeout = null;
 
         document.addEventListener("DOMContentLoaded", function() {
             myModal = new bootstrap.Modal(document.getElementById('questionModal'));
+            
+            if (bgList && bgList.length > 0) {
+                playNextBackground();
+            }
         });
+
+        function playNextBackground() {
+            if (!bgList || bgList.length === 0) return;
+            const bgContainer = document.getElementById('bg-container');
+            bgContainer.innerHTML = '';
+            clearTimeout(bgTimeout);
+            
+            const bgUrl = bgList[currentBgIndex];
+            const isVideo = bgUrl.toLowerCase().match(/\.(mp4|webm|ogg|mov)$/);
+            
+            if (isVideo) {
+                const video = document.createElement('video');
+                video.src = bgUrl + "?v=" + new Date().getTime();
+                video.autoplay = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.style.width = '100vw';
+                video.style.height = '100vh';
+                video.style.objectFit = 'cover';
+                
+                if (bgList.length === 1) {
+                    video.loop = true;
+                } else {
+                    video.onended = () => {
+                        currentBgIndex = (currentBgIndex + 1) % bgList.length;
+                        playNextBackground();
+                    };
+                }
+                bgContainer.appendChild(video);
+            } else {
+                const img = document.createElement('div');
+                img.style.backgroundImage = `url('${bgUrl}?v=${new Date().getTime()}')`;
+                img.style.backgroundSize = 'cover';
+                img.style.backgroundPosition = 'center';
+                img.style.backgroundAttachment = 'fixed';
+                img.style.width = '100vw';
+                img.style.height = '100vh';
+                bgContainer.appendChild(img);
+                
+                if (bgList.length > 1) {
+                    bgTimeout = setTimeout(() => {
+                        currentBgIndex = (currentBgIndex + 1) % bgList.length;
+                        playNextBackground();
+                    }, 5000); // 5 seconds for image
+                }
+            }
+        }
 
         function toggleBackgroundAudio() {
             var audio = document.getElementById('globalBgAudio');
