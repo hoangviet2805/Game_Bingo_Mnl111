@@ -176,11 +176,12 @@
         function playNextBackground() {
             if (!bgList || bgList.length === 0) return;
             const bgContainer = document.getElementById('bg-container');
-            bgContainer.innerHTML = '';
             clearTimeout(bgTimeout);
             
             const bgUrl = bgList[currentBgIndex];
             const isVideo = bgUrl.toLowerCase().match(/\.(mp4|webm|ogg|mov)$/);
+            
+            let newEl;
             
             if (isVideo) {
                 const video = document.createElement('video');
@@ -191,6 +192,11 @@
                 video.style.width = '100vw';
                 video.style.height = '100vh';
                 video.style.objectFit = 'cover';
+                video.style.position = 'absolute';
+                video.style.top = '0';
+                video.style.left = '0';
+                video.style.opacity = '0';
+                video.style.transition = 'opacity 1s ease-in-out';
                 
                 if (bgList.length === 1) {
                     video.loop = true;
@@ -200,23 +206,77 @@
                         playNextBackground();
                     };
                 }
-                bgContainer.appendChild(video);
+                newEl = video;
+                bgContainer.appendChild(newEl);
+                
+                let isReadyFired = false;
+                const onVideoReady = () => {
+                    if (isReadyFired) return;
+                    isReadyFired = true;
+                    
+                    // Kích hoạt animation mờ dần
+                    setTimeout(() => {
+                        newEl.style.opacity = '1';
+                    }, 50);
+                    
+                    // Xoá các background cũ sau khi animation hoàn tất
+                    setTimeout(() => {
+                        while (bgContainer.children.length > 1) {
+                            bgContainer.removeChild(bgContainer.firstChild);
+                        }
+                    }, 1050);
+                };
+                
+                video.addEventListener('canplay', onVideoReady, { once: true });
+                setTimeout(onVideoReady, 2000); // Fallback nếu event không chạy
             } else {
                 const img = document.createElement('div');
-                img.style.backgroundImage = `url('${bgUrl}?v=${new Date().getTime()}')`;
+                const imgUrl = bgUrl + "?v=" + new Date().getTime();
+                img.style.backgroundImage = `url('${imgUrl}')`;
                 img.style.backgroundSize = 'cover';
                 img.style.backgroundPosition = 'center';
                 img.style.backgroundAttachment = 'fixed';
                 img.style.width = '100vw';
                 img.style.height = '100vh';
-                bgContainer.appendChild(img);
+                img.style.position = 'absolute';
+                img.style.top = '0';
+                img.style.left = '0';
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 1s ease-in-out';
                 
-                if (bgList.length > 1) {
-                    bgTimeout = setTimeout(() => {
-                        currentBgIndex = (currentBgIndex + 1) % bgList.length;
-                        playNextBackground();
-                    }, 5000); // 5 seconds for image
-                }
+                newEl = img;
+                bgContainer.appendChild(newEl);
+                
+                const preload = new Image();
+                preload.onload = () => {
+                    setTimeout(() => {
+                        newEl.style.opacity = '1';
+                    }, 50);
+                    
+                    setTimeout(() => {
+                        while (bgContainer.children.length > 1) {
+                            bgContainer.removeChild(bgContainer.firstChild);
+                        }
+                    }, 1050);
+                    
+                    if (bgList.length > 1) {
+                        bgTimeout = setTimeout(() => {
+                            currentBgIndex = (currentBgIndex + 1) % bgList.length;
+                            playNextBackground();
+                        }, 5000); // 5 seconds cho hình ảnh
+                    }
+                };
+                preload.onerror = () => {
+                    setTimeout(() => {
+                        newEl.style.opacity = '1';
+                    }, 50);
+                    setTimeout(() => {
+                        while (bgContainer.children.length > 1) {
+                            bgContainer.removeChild(bgContainer.firstChild);
+                        }
+                    }, 1050);
+                };
+                preload.src = imgUrl;
             }
         }
 
